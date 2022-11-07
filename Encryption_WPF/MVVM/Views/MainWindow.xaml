@@ -1,0 +1,195 @@
+﻿<Window x:Class="Encryption_WPF.MVVM.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Encryption_WPF.MVVM.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Icon="/images/encryption_icon.png"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        Title="Encryption" Height="400" Width="600">
+    <Border BorderThickness="0.3" CornerRadius="15" Background="{StaticResource MainDark_clr}">
+        <DockPanel>
+
+            <!--#region Title Bar-->
+            <Border Background="{StaticResource SecondDark_clr}" DockPanel.Dock="Top" CornerRadius="15 15 0 0" Height="25" MouseDown="Border_MouseDown">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width  ="45"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+
+                    <Image Grid.Column="0" Width="22" Height="22" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="20 0 0 0"
+                      Source="/images/encryption_icon.png"/>
+
+                    <Label Grid.Column="1" Foreground="#f0f4fd" Margin="2 0"  FontWeight="SemiBold" Content="Encryption"/>
+
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 10 0">
+                        <Button Background="Transparent" BorderThickness="0" Width="40" Foreground="#f0f4fd" VerticalAlignment="Center" Content="_" Padding="0 0 0 8" Height="25" Click="ResizeButton_Click" 
+                         BorderBrush="{StaticResource MainLight_clr}"
+                         Style="{StaticResource MaterialDesignPaperSecondaryLightButton}" >
+
+
+                        </Button>
+
+                        <Button Background="Transparent" BorderThickness="0" Width="40" Height="25" Foreground="#f0f4fd" FontSize="10" VerticalAlignment="Center" Content="X" FontWeight="Bold" Click="ResizeButton_Click"
+                        BorderBrush="{StaticResource Red_clr}"
+                         Style="{StaticResource MaterialDesignPaperSecondaryLightButton}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!--#endregion-->
+
+
+            <!--#region AppView-->
+
+            <!--#region AppView-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <!--#region From-->
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+
+                    <!-- Info -->
+                    <Label Content="From" Foreground="#60686c" FontSize="20" FontFamily="Lucida Console" Grid.Row="0" Width="60" VerticalAlignment="Center" Grid.Column="1" HorizontalAlignment="Left" FontWeight="Heavy" Margin="10 5 0 0"/>
+
+
+                    <!-- FileName -->
+                    <TextBlock Foreground="Aqua"
+                               Text="{Binding OpenPath,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="17" FontFamily="Lucida Console"
+                                Grid.Row="1" Background="{StaticResource SecondLight_clr}" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Center" FontWeight="Heavy" 
+                                Margin="20 5 0 0" Width="400" Name="From"/>
+
+
+                    <!-- Action Button -->
+                    <Button  Margin="10 0 0 0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource MaterialDesignPaperSecondaryLightButton}" Height="35" Background="Transparent" Name="Open" Command="{Binding OpenCommand}" Padding="0" IsEnabled="True" Opacity="1" BorderThickness="0" Cursor="Hand" BorderBrush="{StaticResource SecondLight_clr}"
+                      materialDesign:ButtonAssist.CornerRadius="5" Width="90">
+                        <StackPanel Orientation="Horizontal" Opacity="1">
+                            <materialDesign:PackIcon Kind="File" Width="20" Height="20" Margin="5 0"
+                        VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#c7c7c7"/>
+
+                            <Label Content="Open" Foreground="#c7c7c7" Opacity="1" FontSize="16"
+                         FontFamily="Segoe UI Black" FontWeight="DemiBold"/>
+                        </StackPanel>
+                    </Button>
+
+                </StackPanel>
+
+                <!--#endregion-->
+
+                <!--#region Password-->
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+
+                    <!-- Info -->
+                    <Label Content="Encryption" Foreground="#60686c" FontSize="20" FontFamily="Lucida Console" Grid.Row="0" Width="135" VerticalAlignment="Center" Grid.Column="1" HorizontalAlignment="Left" FontWeight="Heavy" Margin="10 5 0 0"/>
+
+
+                    <!-- FileName -->
+                    <Grid Margin="15" Name="PasswordGRID" Width="250">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="40"/>
+                        </Grid.ColumnDefinitions>
+
+                        <PasswordBox Foreground="#c7c7c7" Grid.Column="0"
+                         Background="{StaticResource SecondLight_clr}" TabIndex="2"
+                         materialDesign:HintAssist.Hint="Password" MaxLength="22"
+                         materialDesign:HintAssist.Background="Transparent"
+                         FontSize="15" Height="50" materialDesign:HintAssist.IsFloating="False"
+                         Style="{StaticResource MaterialDesignOutlinedPasswordBox}" 
+                         PasswordChanged="HidePassword_PasswordChanged"  Name="HidePassword">
+                        </PasswordBox>
+
+                        <TextBox Foreground="#c7c7c7" 
+                         Background="{StaticResource SecondLight_clr}" Margin="0"  
+                         FontSize="15" Height="50" materialDesign:HintAssist.IsFloating="False"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"  
+                         materialDesign:HintAssist.Hint="Password" MaxLength="22" Visibility="Hidden"
+                         materialDesign:HintAssist.Background="Transparent" Grid.Column="0" TabIndex="2"
+                         Name="ShowPassword" TextChanged="ShowPassword_TextChanged">
+                        </TextBox>
+
+                        <ToggleButton Grid.Column="1" Background="#38304c"
+                        Style="{StaticResource MaterialDesignActionToggleButton}"
+                        Content="{materialDesign:PackIcon Kind=EyeOff}" VerticalAlignment="Center"
+                        Click="PasswordEye_Click" x:Name="PasswordEye" HorizontalAlignment="Center"  
+                        materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Eye}" />
+
+                    </Grid>
+
+
+
+                    <!-- Action Button -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" 
+                                HorizontalAlignment="Center">
+
+                        <RadioButton Content="Encrypt" Foreground="#dfeef1" VerticalAlignment="Center"
+                                     Style="{StaticResource MaterialDesignDarkRadioButton}"             
+                                     HorizontalAlignment="Center" Margin="10 0" IsChecked="True"
+                                     Command="{Binding OptionsCommand}" Name="Encrypt"/>
+
+                        <RadioButton Content="Decrypt" Foreground="#dfeef1" VerticalAlignment="Center"
+                                     Style="{StaticResource MaterialDesignDarkRadioButton}"             
+                                     HorizontalAlignment="Center" Margin="10 0"
+                                     Name="Decrypt" Command="{Binding OptionsCommand}"/>
+
+
+
+                    </StackPanel>
+
+                </StackPanel>
+
+
+                <!--#endregion-->
+                
+                <!--#region Progress-->
+
+                <ProgressBar Grid.Row="2" Name="Progress" Height="20" />
+
+                <!--#endregion-->
+
+                <!--#region Action-->
+
+                <StackPanel Orientation="Horizontal" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                    <Button  Margin="10 0 0 0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource MaterialDesignPaperSecondaryLightButton}" Height="35" Background="Transparent" Name="Start" Command="{Binding StartCommand}" Padding="0" IsEnabled="True" Opacity="1" BorderThickness="0" Cursor="Hand" BorderBrush="{StaticResource SecondLight_clr}"
+                      materialDesign:ButtonAssist.CornerRadius="5" Width="90">
+                        <StackPanel Orientation="Horizontal" Opacity="1">
+                            <materialDesign:PackIcon Kind="RayStartArrow" Width="20" Height="20" Margin="5 0"
+                        VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#c7c7c7"/>
+
+                            <Label Content="Start" Foreground="#c7c7c7" Opacity="1" FontSize="16"
+                         FontFamily="Segoe UI Black" FontWeight="DemiBold"/>
+                        </StackPanel>
+                    </Button>
+
+                </StackPanel>
+
+                <!--#endregion-->
+
+            </Grid>
+            <!--#endregion-->
+
+            <!--#endregion-->
+
+        </DockPanel>
+    </Border>
+
+</Window>
